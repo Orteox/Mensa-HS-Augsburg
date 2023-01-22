@@ -1,18 +1,12 @@
-# This is a sample Python script.
 from PyPDF2 import PdfReader
 import requests
 import os
 import re
 
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
 def main():
     url = "https://www.hs-augsburg.de/Service/Mensa-und-Cafeteria.html"
-    page = requests.get(url)
-    html = page.text
+    html = requests.get(url).text
     html = html.split("hyphenate tinymce-content")[2]
     html = html.split('a href="')[1]
     html = html.split('" target')[0]
@@ -33,7 +27,7 @@ def main():
 
     for i in range(len(one)):
         print(weekdays[i] + ":\n" + re.sub(r'\(\d+(\s*,\s*\d+)+\)', ' ', one[i]) + "\n" +
-              re.sub(r'\(\d+(\s*,\s*\d+)+\)', ' ', two[i] + "--------------------------------------------------"))
+              re.sub(r'\(\d+(\s*,\s*\d+)+\)', ' ', two[i] + "-" * 30))
     os.remove("mensa.pdf")
 
 
